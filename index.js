@@ -1,7 +1,6 @@
 const canvas = document.querySelector("canvas");
 const c = canvas.getContext('2d');
 const gravity = 0.7;
-
 canvas.width = 1024;
 canvas.height = 576;
 
@@ -84,7 +83,7 @@ const enemy = new Sprite({
 console.log(player);
 
 
-const  keys = {
+const keys = {
     a: {
         pressed: false
     },
