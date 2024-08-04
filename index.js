@@ -1,3 +1,4 @@
+
 const canvas = document.querySelector("canvas");
 const c = canvas.getContext('2d');
 const gravity = 0.7;
@@ -153,7 +154,10 @@ window.addEventListener('keydown', (event) => {
             player.lastKey = 'a';
             break;
         case 'w':
-                player.velocity.y = -20
+            if(player.position.y + player.height >= canvas.height)
+            {
+                player.velocity.y = -20;
+            }
             break;
         case ' ':
             player.attack()
@@ -168,7 +172,10 @@ window.addEventListener('keydown', (event) => {
             enemy.lastKey = 'ArrowLeft';
             break;
         case 'ArrowUp':
-                enemy.velocity.y = -20
+            if(enemy.position.y + enemy.height >= canvas.height)
+            {
+                enemy.velocity.y = -20;
+            }
             break;
     }
     console.log(event.key);
