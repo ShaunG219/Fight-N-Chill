@@ -48,6 +48,17 @@ const background6 = new Sprite({
     imageSrc: './img/pixelArtHill/PNG/hillsLayerLarge06.png'
 });
 
+const shop = new Sprite({
+    position: {
+        x: 477,
+        y: 350,
+    }, 
+    imageSrc: './img/shop.png',
+    scale: 1.5,
+    opacityVal: 0.5,
+    framesMax: 6
+});
+
 
 c.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -107,11 +118,13 @@ function animate(){
     background1.update();
     background2.update();
     background3.update();
+    shop.update();
     background4.update();
     background5.update();
-    background6.update();
+    
     player.update();
     enemy.update();
+    background6.update();
     player.velocity.x = 0;
     enemy.velocity.x = 0;
     
@@ -173,7 +186,7 @@ window.addEventListener('keydown', (event) => {
             player.lastKey = 'a';
             break;
         case 'w':
-            if(player.position.y + player.height >= canvas.height)
+            if(player.position.y + player.height >= canvas.height - 35)
             {
                 player.velocity.y = -20;
             }
@@ -191,7 +204,7 @@ window.addEventListener('keydown', (event) => {
             enemy.lastKey = 'ArrowLeft';
             break;
         case 'ArrowUp':
-            if(enemy.position.y + enemy.height >= canvas.height)
+            if(enemy.position.y + enemy.height >= canvas.height - 35)
             {
                 enemy.velocity.y = -20;
             }

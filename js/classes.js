@@ -1,27 +1,57 @@
-class Sprite{
-    constructor({position, imageSrc})
+class Sprite
+{
+    constructor({position, imageSrc, scale = 1, opacityVal = 1, framesMax = 1})
     {
         this.position = position;
         this.width = 50;
         this.height = 150;
         this.image = new Image();
         this.image.src = imageSrc;
+        this.scale = scale
+        this.opacityVal = opacityVal;
+        this.framesMax = framesMax;
+        this.framesCurrent = 0;
+        this.framesElapsed = 0;
+        this.framesHold = 5;
     }
 
     draw()
     {
-        c.drawImage(this.image, this.position.x, this.position.y);
+        c.drawImage(
+            this.image, //image
+            this.framesCurrent * (this.image.width/this.framesMax), //crop width starting position
+            0, //crop height starting position
+            this.image.width/this.framesMax, //crop width size
+            this.image.height, //crop height size
+            this.position.x, //where image should be placed on x coordinate
+            this.position.y, //where image should be placed on y coordinate
+            (this.image.width/this.framesMax) * this.scale, //image scaled up for width
+            this.image.height * this.scale //image scaled up for height
+        );
         
     }
 
     update()
     {
         this.draw();
+        this.framesElapsed++
+        
+        if(this.framesElapsed % this.framesHold === 0)
+        {
+            if(this.framesCurrent < this.framesMax-1){
+                this.framesCurrent++;
+            }
+            else{
+                this.framesCurrent = 0;
+            }
+        }
+        
     }
     
 }
 
-class Fighter{
+class Fighter
+{
     constructor({position, velocity, color = 'red', offset}){
         this.position = position;
         this.velocity = velocity;
@@ -62,7 +92,7 @@ class Fighter{
         this.attackBox.position.y = this.position.y;
         this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;
-        if(this.position.y + this.height + this.velocity.y >= canvas.height)
+        if(this.position.y + this.height + this.velocity.y >= canvas.height - 35)
         {
             this.velocity.y = 0;
         }
