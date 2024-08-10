@@ -3,6 +3,7 @@ const canvas = document.querySelector("canvas");
 const c = canvas.getContext('2d');
 canvas.width = 1024;
 canvas.height = 576;
+c.fillRect(0, 0, canvas.width, canvas.height);
 const gravity = 0.7;
 
 const background1 = new Sprite({
@@ -55,12 +56,11 @@ const shop = new Sprite({
     }, 
     imageSrc: './img/shop.png',
     scale: 1.5,
-    opacityVal: 0.5,
     framesMax: 6
 });
 
 
-c.fillRect(0, 0, canvas.width, canvas.height);
+
 
 const player = new Fighter({
     position:{
@@ -74,8 +74,10 @@ const player = new Fighter({
     offset:{
     x:0,
     y:0
-    }
-})
+    },
+    imageSrc: './img/medievalFighter/Sprites/Idle.png',
+    framesMax: 10
+});
 
 const enemy = new Fighter({
     position:{
@@ -92,8 +94,6 @@ const enemy = new Fighter({
     y: 0
     }
 })
-console.log(player);
-
 
 const keys = {
     a: {
@@ -112,7 +112,8 @@ const keys = {
 
 decreaseTimer();
 
-function animate(){
+function animate()
+{
     c.fillStyle = 'black';
     c.fillRect(0, 0, canvas.width, canvas.height);
     background1.update();

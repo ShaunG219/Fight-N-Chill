@@ -1,14 +1,14 @@
 class Sprite
 {
-    constructor({position, imageSrc, scale = 1, opacityVal = 1, framesMax = 1})
+    constructor({position, imageSrc, scale = 1, framesMax = 1})
     {
+        
         this.position = position;
         this.width = 50;
         this.height = 150;
         this.image = new Image();
         this.image.src = imageSrc;
         this.scale = scale
-        this.opacityVal = opacityVal;
         this.framesMax = framesMax;
         this.framesCurrent = 0;
         this.framesElapsed = 0;
@@ -27,63 +27,63 @@ class Sprite
             this.position.y, //where image should be placed on y coordinate
             (this.image.width/this.framesMax) * this.scale, //image scaled up for width
             this.image.height * this.scale //image scaled up for height
-        );
-        
+        );   
     }
 
     update()
     {
         this.draw();
-        this.framesElapsed++
-        
+        this.framesElapsed++;
         if(this.framesElapsed % this.framesHold === 0)
         {
-            if(this.framesCurrent < this.framesMax-1){
+            if(this.framesCurrent < this.framesMax - 1){
                 this.framesCurrent++;
             }
             else{
                 this.framesCurrent = 0;
             }
         }
-        
     }
-    
 }
 
-class Fighter
-{
-    constructor({position, velocity, color = 'red', offset}){
-        this.position = position;
+class Fighter extends Sprite{
+    constructor({
+        position, 
+        velocity, 
+        color = 'red', 
+        offset, 
+        imageSrc, 
+        scale = 1, 
+        framesMax = 1
+    }) {
+        super({
+            position,
+            imageSrc, 
+            scale, 
+            framesMax
+        })
+    
         this.velocity = velocity;
         this.width = 50;
         this.height = 150;
         this.lastKey
         this.attackBox = {
-            position: {
+            position: 
+            {
                 x: this.position.x,
                 y: this.position.y
             },
             offset,
             width: 100,
-            height: 50,
+            height: 50
         }
+
         this.color = color;
         this.isAttacking;
         this.health = 100;
-    }
-
-    draw(){
-        c.fillStyle = this.color;
-        c.fillRect(this.position.x, this.position.y, this.width, this.height);
-
-        if(this.isAttacking){
-        c.fillStyle="green";
-        c.fillRect(this.attackBox.position.x, 
-                   this.attackBox.position.y, 
-                   this.attackBox.width,
-                   this.attackBox.height)
-        }
-        
+        this.framesCurrent = 0;
+        this.framesElapsed = 0;
+        this.framesHold = 5;
     }
 
     update(){
