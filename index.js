@@ -1,9 +1,53 @@
 
 const canvas = document.querySelector("canvas");
 const c = canvas.getContext('2d');
-const gravity = 0.7;
 canvas.width = 1024;
 canvas.height = 576;
+const gravity = 0.7;
+
+const background1 = new Sprite({
+    position: {
+        x: 0,
+        y: 0,
+    },
+    imageSrc: './img/pixelArtHill/PNG/hillsLayerLarge01.png'
+});
+const background2 = new Sprite({
+    position: {
+        x: 0,
+        y: 0,
+    },
+    imageSrc: './img/pixelArtHill/PNG/hillsLayerLarge02.png'
+});
+const background3 = new Sprite({
+    position: {
+        x: 0,
+        y: 0,
+    },
+    imageSrc: './img/pixelArtHill/PNG/hillsLayerLarge03.png'
+});
+const background4 = new Sprite({
+    position: {
+        x: 0,
+        y: 0,
+    },
+    imageSrc: './img/pixelArtHill/PNG/hillsLayerLarge04.png'
+});
+const background5 = new Sprite({
+    position: {
+        x: 0,
+        y: 0,
+    },
+    imageSrc: './img/pixelArtHill/PNG/hillsLayerLarge05.png'
+});
+const background6 = new Sprite({
+    position: {
+        x: 0,
+        y: 0,
+    },
+    imageSrc: './img/pixelArtHill/PNG/hillsLayerLarge06.png'
+});
+
 
 c.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -55,52 +99,17 @@ const keys = {
     }
 }
 
-function rectangularCollision({rectangle1, rectangle2})
-{
-    return(rectangle1.attackBox.position.x + rectangle1.attackBox.width >= rectangle2.position.x
-        && rectangle1.attackBox.position.x <= rectangle2.position.x + rectangle2.width
-        && rectangle1.attackBox.position.y + rectangle1.attackBox.height >= rectangle2.position.y
-        && rectangle1.attackBox.position.y <= rectangle2.position.y + rectangle2.height)
-} 
-
-function determineWinner({player, enemy, timerId})
-{
-    clearTimeout(timerId);
-    document.querySelector('#displayText').style.display = 'flex';
-    if(player.health === enemy.health)
-        {
-            document.querySelector('#displayText').innerHTML = 'Tie';
-        }
-        else if(player.health > enemy.health)
-        {
-            document.querySelector('#displayText').innerHTML = 'Player 1 wins';
-        }
-        else
-        {
-            document.querySelector('#displayText').innerHTML = 'Player 2 wins';
-        }
-}
-
-let timer = 10;
-let timerId;
-function decreaseTimer()
-{
-    if(timer > 0) 
-    {
-        timer--;
-        document.querySelector("#timer").innerHTML = timer;
-        timerId = setTimeout(decreaseTimer, 1000);
-    }
-    if(timer === 0)
-    {
-        determineWinner({player, enemy, timerId});
-    }
-}
-
 decreaseTimer();
+
 function animate(){
     c.fillStyle = 'black';
     c.fillRect(0, 0, canvas.width, canvas.height);
+    background1.update();
+    background2.update();
+    background3.update();
+    background4.update();
+    background5.update();
+    background6.update();
     player.update();
     enemy.update();
     player.velocity.x = 0;
@@ -150,7 +159,6 @@ function animate(){
 
     window.requestAnimationFrame(animate);
 }
-
 animate();
 
 window.addEventListener('keydown', (event) => { 
