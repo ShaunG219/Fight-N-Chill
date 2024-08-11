@@ -1,4 +1,3 @@
-
 const canvas = document.querySelector("canvas");
 const c = canvas.getContext('2d');
 canvas.width = 1024;
@@ -76,7 +75,8 @@ const player = new Fighter({
     y:0
     },
     imageSrc: './img/medievalFighter/Sprites/Idle.png',
-    framesMax: 10
+    framesMax: 10,
+    scale: 3
 });
 
 const enemy = new Fighter({

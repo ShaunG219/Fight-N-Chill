@@ -1,6 +1,6 @@
 class Sprite
 {
-    constructor({position, imageSrc, scale = 1, framesMax = 1})
+    constructor({position, imageSrc, scale = 1, framesMax = 1, offset = {x: 0, y: 0}})
     {
         
         this.position = position;
@@ -13,21 +13,28 @@ class Sprite
         this.framesCurrent = 0;
         this.framesElapsed = 0;
         this.framesHold = 5;
+        this.image.src = imageSrc;
+        this.offset = offset
+        //Chekcs if image loaded
+        this.loaded = false;
+        this.image.onload = () => {this.loaded = true;};
     }
 
     draw()
     {
+        //checks if image loaded, wont draw until image is loaded.
+        if(!this.loaded) return;
         c.drawImage(
             this.image, //image
-            this.framesCurrent * (this.image.width/this.framesMax), //crop width starting position
+            this.framesCurrent * (this.image.width / this.framesMax), //crop width starting position
             0, //crop height starting position
-            this.image.width/this.framesMax, //crop width size
+            this.image.width / this.framesMax, //crop width size
             this.image.height, //crop height size
-            this.position.x, //where image should be placed on x coordinate
-            this.position.y, //where image should be placed on y coordinate
-            (this.image.width/this.framesMax) * this.scale, //image scaled up for width
+            this.position.x, - this.offset.x,//where image should be placed on x coordinate
+            this.position.y - this.offset.y, //where image should be placed on y coordinate
+            (this.image.width / this.framesMax) * this.scale, //image scaled up for width
             this.image.height * this.scale //image scaled up for height
-        );   
+        ) 
     }
 
     update()
@@ -54,13 +61,15 @@ class Fighter extends Sprite{
         offset, 
         imageSrc, 
         scale = 1, 
-        framesMax = 1
+        framesMax = 1,
+        offset = {x: 0, y: 0}
     }) {
         super({
             position,
             imageSrc, 
             scale, 
-            framesMax
+            framesMax,
+            offset
         })
     
         this.velocity = velocity;
