@@ -76,7 +76,11 @@ const player = new Fighter({
     },
     imageSrc: './img/medievalFighter/Sprites/Idle.png',
     framesMax: 10,
-    scale: 3
+    scale: 3,
+    offset: {
+        x: 160,
+        y: 107
+    }
 });
 
 const enemy = new Fighter({
@@ -124,7 +128,7 @@ function animate()
     background5.update();
     
     player.update();
-    enemy.update();
+    //enemy.update();
     background6.update();
     player.velocity.x = 0;
     enemy.velocity.x = 0;
