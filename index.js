@@ -58,9 +58,6 @@ const shop = new Sprite({
     framesMax: 6
 });
 
-
-
-
 const player = new Fighter({
     position:{
     x: 0,
@@ -74,12 +71,30 @@ const player = new Fighter({
     x:0,
     y:0
     },
-    imageSrc: './img/medievalFighter/Sprites/Idle.png',
-    framesMax: 10,
-    scale: 3,
     offset: {
         x: 160,
         y: 107
+    },
+    imageSrc: './img/medievalFighter/Sprites/Idle.png',
+    framesMax: 10,
+    scale: 3,
+    sprites:{
+        idle:{
+            imageSrc: './img/medievalFighter/Sprites/Idle.png',
+            framesMax: 10
+        },
+        run: {
+            imageSrc: './img/medievalFighter/Sprites/Run.png',
+            framesMax: 6
+        },
+        jump: {
+            imageSrc: './img/medievalFighter/Sprites/Jump.png',
+            framesMax: 2
+        },
+        fall:{
+            imageSrc: './img/medievalFighter/Sprites/Fall.png',
+            framesMax: 2
+        }
     }
 });
 
@@ -137,16 +152,28 @@ function animate()
     if(keys.a.pressed && player.lastKey === 'a')
     {
         player.velocity.x = -5;
+        player.switchSprite('run');
     }
     else if(keys.d.pressed && player.lastKey === 'd')
     {
         player.velocity.x = 5;
+        player.switchSprite('run');
+    }
+    else{
+        player.switchSprite('idle');
+    }
+
+    if(player.velocity.y < 0){
+        player.switchSprite('jump');
+    }
+    else if(player.velocity.y > 0){
+        player.switchSprite('fall');
     }
 
     //Enemy
     if(keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft')
         {
-            enemy.velocity.x = -5;
+            enemy.velocity.x = -5
         }
         else if(keys.ArrowRight.pressed && enemy.lastKey === 'ArrowRight')
         {
