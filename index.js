@@ -67,12 +67,8 @@ const player = new Fighter({
     x: 0,
     y: 0
     },
-    offset:{
-    x:0,
-    y:0
-    },
     offset: {
-        x: 160,
+        x: 185,
         y: 107
     },
     imageSrc: './img/medievalFighter/Sprites/Idle.png',
@@ -99,12 +95,20 @@ const player = new Fighter({
             imageSrc: './img/medievalFighter/Sprites/Attack1.png',
             framesMax: 4
         }
+    },
+    attackBox: {
+        offset:{
+            x: 65,
+            y: 40
+        },
+        width: 120,
+        height: 50
     }
-});
+})
 
 const enemy = new Fighter({
     position:{
-    x: 400,
+    x: 942,
     y: 100
     },
     velocity:{
@@ -113,33 +117,41 @@ const enemy = new Fighter({
     },
     color: 'blue',
     offset:{
-    x: -50,
-    y: 0
+    x: 215,
+    y: 158
     },
-    imageSrc: './img/martialFighter/Sprites/Idle.png',
-    framesMax: 10,
-    scale: 3,
+    imageSrc: './img/kenji/Idle.png',
+    framesMax: 4,
+    scale: 2.4,
     sprites:{
         idle:{
-            imageSrc: './img/medievalFighter/Sprites/Idle.png',
-            framesMax: 10
+            imageSrc: './img/kenji/Idle.png',
+            framesMax: 4
         },
         run: {
-            imageSrc: './img/medievalFighter/Sprites/Run.png',
-            framesMax: 6
+            imageSrc: './img/kenji/Run.png',
+            framesMax: 8
         },
         jump: {
-            imageSrc: './img/medievalFighter/Sprites/Jump.png',
+            imageSrc: './img/kenji/Jump.png',
             framesMax: 2
         },
         fall:{
-            imageSrc: './img/medievalFighter/Sprites/Fall.png',
+            imageSrc: './img/kenji/Fall.png',
             framesMax: 2
         },
         attack:{
-            imageSrc: './img/medievalFighter/Sprites/Attack1.png',
+            imageSrc: './img/kenji/Attack1.png',
             framesMax: 4
         }
+    },
+    attackBox: {
+        offset:{
+            x: -172,
+            y: 40
+        },
+        width: 157,
+        height: 50
     }
 })
 
@@ -172,7 +184,7 @@ function animate()
     background5.update();
     
     player.update();
-    //enemy.update();
+    enemy.update();
     background6.update();
     player.velocity.x = 0;
     enemy.velocity.x = 0;
@@ -201,23 +213,44 @@ function animate()
 
     //Enemy
     if(keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft')
-        {
-            enemy.velocity.x = -5
-        }
-        else if(keys.ArrowRight.pressed && enemy.lastKey === 'ArrowRight')
-        {
-            enemy.velocity.x = 5;
-        }
+    {
+        enemy.velocity.x = -5
+        enemy.switchSprite('run');
+    }
+    else if(keys.ArrowRight.pressed && enemy.lastKey === 'ArrowRight')
+    {
+        enemy.velocity.x = 5;
+        enemy.switchSprite('run');
+    }
+    else{
+        enemy.switchSprite('idle');
+    }
+
+    if(enemy.velocity.y < 0){
+        enemy.switchSprite('jump');
+    }
+    else if(enemy.velocity.y > 0){
+        enemy.switchSprite('fall');
+    }
 
     // detect for collision
-    if(rectangularCollision({rectangle1: player, rectangle2: enemy}) && player.isAttacking)
+    //player hits succesfully
+    if(rectangularCollision({rectangle1: player, rectangle2: enemy}) && player.isAttacking && player.framesCurrent === 2)
     {
+        console.log("hi");
         player.isAttacking = false;
         if(enemy.health > 0 && player.health > 0 && timer > 0)
             enemy.health -= 20;
         document.querySelector('#enemyHealth').style.width = enemy.health + '%';
     }
+    //player misses
+    if(player.isAttacking && player.framesCurrent === 2)
+    {
+        player.isAttacking = false;
+    }
 
+    //detect for collision
+    //enemy hit successfully
     if(rectangularCollision({rectangle1: enemy, rectangle2: player}) && enemy.isAttacking)
     {
         enemy.isAttacking = false;
@@ -225,7 +258,13 @@ function animate()
             player.health -= 20;
         document.querySelector("#playerHealth").style.width = player.health + '%';
     }
-    
+    //enemy misses
+    if(enemy.isAttacking && enemy.framesCurrent === 1)
+    {
+        enemy.isAttacking = false;
+    }
+
+
     if(enemy.health <= 0 || player.health <=0)
     {
         determineWinner({player, enemy, timerId});
