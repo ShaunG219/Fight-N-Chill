@@ -94,6 +94,10 @@ const player = new Fighter({
         attack:{
             imageSrc: './img/medievalFighter/Sprites/Attack1.png',
             framesMax: 4
+        },
+        takeHit:{
+            imageSrc: './img/medievalFighter/Sprites/takeHit.png',
+            framesMax: 3
         }
     },
     attackBox: {
@@ -143,6 +147,10 @@ const enemy = new Fighter({
         attack:{
             imageSrc: './img/kenji/Attack1.png',
             framesMax: 4
+        },
+        takeHit:{
+            imageSrc: './img/kenji/takeHit.png',
+            framesMax: 3
         }
     },
     attackBox: {
@@ -237,10 +245,12 @@ function animate()
     //player hits succesfully
     if(rectangularCollision({rectangle1: player, rectangle2: enemy}) && player.isAttacking && player.framesCurrent === 2)
     {
-        console.log("hi");
         player.isAttacking = false;
         if(enemy.health > 0 && player.health > 0 && timer > 0)
-            enemy.health -= 20;
+        {
+            enemy.takeHit();
+        }
+            
         document.querySelector('#enemyHealth').style.width = enemy.health + '%';
     }
     //player misses
@@ -255,7 +265,7 @@ function animate()
     {
         enemy.isAttacking = false;
         if(player.health > 0 && enemy.health > 0 && timer > 0)
-            player.health -= 20;
+            player.takeHit();
         document.querySelector("#playerHealth").style.width = player.health + '%';
     }
     //enemy misses
