@@ -115,6 +115,31 @@ const enemy = new Fighter({
     offset:{
     x: -50,
     y: 0
+    },
+    imageSrc: './img/martialFighter/Sprites/Idle.png',
+    framesMax: 10,
+    scale: 3,
+    sprites:{
+        idle:{
+            imageSrc: './img/medievalFighter/Sprites/Idle.png',
+            framesMax: 10
+        },
+        run: {
+            imageSrc: './img/medievalFighter/Sprites/Run.png',
+            framesMax: 6
+        },
+        jump: {
+            imageSrc: './img/medievalFighter/Sprites/Jump.png',
+            framesMax: 2
+        },
+        fall:{
+            imageSrc: './img/medievalFighter/Sprites/Fall.png',
+            framesMax: 2
+        },
+        attack:{
+            imageSrc: './img/medievalFighter/Sprites/Attack1.png',
+            framesMax: 4
+        }
     }
 })
 
