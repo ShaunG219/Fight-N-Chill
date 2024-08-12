@@ -94,6 +94,10 @@ const player = new Fighter({
         fall:{
             imageSrc: './img/medievalFighter/Sprites/Fall.png',
             framesMax: 2
+        },
+        attack:{
+            imageSrc: './img/medievalFighter/Sprites/Attack1.png',
+            framesMax: 4
         }
     }
 });
@@ -224,7 +228,7 @@ window.addEventListener('keydown', (event) => {
             }
             break;
         case ' ':
-            player.attack()
+            player.attack();
             break;
 //Enemy
         case 'ArrowRight':
