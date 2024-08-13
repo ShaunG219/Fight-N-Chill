@@ -98,6 +98,10 @@ const player = new Fighter({
         takeHit:{
             imageSrc: './img/medievalFighter/Sprites/takeHit.png',
             framesMax: 3
+        },
+        death:{
+            imageSrc: './img/medievalFighter/Sprites/Death.png',
+            framesMax: 9
         }
     },
     attackBox: {
@@ -151,6 +155,10 @@ const enemy = new Fighter({
         takeHit:{
             imageSrc: './img/kenji/takeHit.png',
             framesMax: 3
+        },
+        death:{
+            imageSrc: './img/kenji/Death.png',
+            framesMax: 7
         }
     },
     attackBox: {
@@ -285,45 +293,53 @@ function animate()
 animate();
 
 window.addEventListener('keydown', (event) => { 
-    console.log(event.key);
-    switch(event.key){
-        case 'd':
-            keys.d.pressed = true;
-            player.lastKey = 'd';
-            break; 
-        case 'a':
-            keys.a.pressed = true;
-            player.lastKey = 'a';
-            break;
-        case 'w':
-            if(player.position.y + player.height >= canvas.height - 35)
-            {
-                player.velocity.y = -20;
-            }
-            break;
-        case ' ':
-            player.attack();
-            break;
-//Enemy
-        case 'ArrowRight':
-            keys.ArrowRight.pressed = true;
-            enemy.lastKey = 'ArrowRight';
-            break; 
-        case 'ArrowLeft':
-            keys.ArrowLeft.pressed = true;
-            enemy.lastKey = 'ArrowLeft';
-            break;
-        case 'ArrowUp':
-            if(enemy.position.y + enemy.height >= canvas.height - 35)
-            {
-                enemy.velocity.y = -20;
-            }
-            break;
-        case 'ArrowDown':
-            enemy.attack();
-            break;
+    if(!player.dead)
+    {
+        switch(event.key){
+            case 'd':
+                keys.d.pressed = true;
+                player.lastKey = 'd';
+                break; 
+            case 'a':
+                keys.a.pressed = true;
+                player.lastKey = 'a';
+                break;
+            case 'w':
+                if(player.position.y + player.height >= canvas.height - 35)
+                {
+                    player.velocity.y = -20;
+                }
+                break;
+            case ' ':
+                player.attack();
+                break;
+        }
     }
-    console.log(event.key);
+
+    //Enemy
+    if(!enemy.dead)
+    {
+        switch(event.key)
+        {
+            case 'ArrowRight':
+                keys.ArrowRight.pressed = true;
+                enemy.lastKey = 'ArrowRight';
+                break; 
+            case 'ArrowLeft':
+                keys.ArrowLeft.pressed = true;
+                enemy.lastKey = 'ArrowLeft';
+                break;
+            case 'ArrowUp':
+                if(enemy.position.y + enemy.height >= canvas.height - 35)
+                {
+                    enemy.velocity.y = -20;
+                }
+                break;
+            case 'ArrowDown':
+                enemy.attack();
+                break;
+        }
+    }
 })
 
 window.addEventListener('keyup', (event) => { 
