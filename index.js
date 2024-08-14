@@ -188,6 +188,9 @@ const keys = {
     }
 }
 
+let leftBorder = 5;
+let rightBorder = 970;
+
 let totalTime = 60;
 let timeRestart = false;
 decreaseTimer(timeRestart);
@@ -208,20 +211,23 @@ function animate()
     background6.update();
     player.velocity.x = 0;
     enemy.velocity.x = 0;
-    
     //Check if fighters are out of bounds
-    player.outOfBounds();
-    enemy.outOfBounds();
     //Player
     if(keys.a.pressed && player.lastKey === 'a')
     {
+        if(player.position.x > leftBorder)
+        {
             player.velocity.x = -5;
             player.switchSprite('run');
+        }
     }
     else if(keys.d.pressed && player.lastKey === 'd')
     {
+        if(player.position.x < rightBorder)
+        {
             player.velocity.x = 5;
             player.switchSprite('run');
+        }
         
     }
     else{
@@ -238,13 +244,20 @@ function animate()
     //Enemy
     if(keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft')
     {
-        enemy.velocity.x = -5
-        enemy.switchSprite('run');
+        if(enemy.position.x > leftBorder)
+        {
+            enemy.velocity.x = -5
+            enemy.switchSprite('run');
+        }
+        
     }
     else if(keys.ArrowRight.pressed && enemy.lastKey === 'ArrowRight')
     {
-        enemy.velocity.x = 5;
-        enemy.switchSprite('run');
+        if(enemy.position.x < rightBorder)
+        {
+            enemy.velocity.x = 5;
+            enemy.switchSprite('run');
+        }
     }
     else{
         enemy.switchSprite('idle');
@@ -289,7 +302,7 @@ function animate()
 
         if(player.health <= 0)
             player.health = 0;
-        
+
         gsap.to('#playerHealth', {
             width: player.health + '%'
         })
@@ -306,7 +319,6 @@ function animate()
         determineWinner({player, enemy, timerId});
     }
 
-    //console.log(enemy.position.x);
     window.requestAnimationFrame(animate);
 }
 animate();
@@ -367,7 +379,6 @@ window.addEventListener('keydown', (event) => {
 })
 
 window.addEventListener('keyup', (event) => { 
-    console.log(event.key);
     
     switch(event.key){
         case 'd':
@@ -389,5 +400,5 @@ window.addEventListener('keyup', (event) => {
             break;
       
     }
-    console.log(event.key);
+    
 })

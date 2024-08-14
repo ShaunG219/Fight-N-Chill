@@ -146,12 +146,6 @@ class Fighter extends Sprite{
         }
     }
 
-    outOfBounds()
-    {
-        if(this.position.x <= -60 || this.position.x >= 1030)
-            return true;
-    }
-
     attack()
     {
         this.switchSprite('attack');
