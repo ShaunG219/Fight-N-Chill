@@ -117,7 +117,7 @@ const player = new Fighter({
 const enemy = new Fighter({
     position:{
     x: 942,
-    y: 100
+    y: 0
     },
     velocity:{
     x: 0,
@@ -186,7 +186,9 @@ const keys = {
     }
 }
 
-decreaseTimer();
+let totalTime = 60;
+let timeRestart = false;
+decreaseTimer(timeRestart);
 
 function animate()
 {
@@ -258,6 +260,7 @@ function animate()
         {
             enemy.takeHit();
         }
+        
         gsap.to('#enemyHealth', {
             width: enemy.health + '%'
         })
@@ -296,8 +299,14 @@ function animate()
 animate();
 
 window.addEventListener('keydown', (event) => { 
+    if(event.key === 'Enter')
+    {
+        restart({player, enemy});
+    }
+
     if(!player.dead)
     {
+        console.log("player.dead = " + player.dead);
         switch(event.key){
             case 'd':
                 keys.d.pressed = true;

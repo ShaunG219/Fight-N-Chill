@@ -108,7 +108,15 @@ class Fighter extends Sprite{
         console.log(this.sprites);
     }
 
-    update(){
+    revive()
+    {
+        this.dead = false;
+        this.health = 100;
+        this.image = this.sprites.idle.image;
+    }
+
+    update()
+    {
         this.draw();
         if(!this.dead)
         {
@@ -136,12 +144,15 @@ class Fighter extends Sprite{
             this.velocity.y += gravity;
         }
     }
-    attack(){
+
+    attack()
+    {
         this.switchSprite('attack');
         this.isAttacking = true;
     }
 
-    takeHit(){    
+    takeHit()
+    {    
         this.health -= 20;
         if(this.health <= 0)
         {
@@ -156,6 +167,9 @@ class Fighter extends Sprite{
     switchSprite(sprite)
     {
         //death animation plays
+
+        //  Prevent switching sprites when dead, unless reviving
+        // If reviving, reset the sprite to 'idle'
         if (this.image === this.sprites.death.image) 
         {
             if (this.framesCurrent < this.sprites.death.framesMax - 1) 

@@ -24,18 +24,45 @@ function determineWinner({player, enemy, timerId})
         }
 }
 
-let timer = 60;
-let timerId;
-function decreaseTimer()
+function restart({player, enemy})
 {
+    player.revive();
+    player.position.x = 0;
+    player.position.y = 0;
+    
+    gsap.killTweensOf('#playerHealth');
+    document.querySelector('#playerHealth').style.width = player.health + '%';
+    
+
+    enemy.revive();
+    enemy.position.x = 942;
+    enemy.position.y = 0;
+    gsap.killTweensOf('#enemyhealth');
+    document.querySelector('#enemyHealth').style.width = enemy.health + '%';
+    
+    timeRestart = true;
+    decreaseTimer(timeRestart);
+
+    document.querySelector('#displayText').style.display = 'none';
+}
+
+let timer = 10;
+let timerId;
+function decreaseTimer(timeRestart)
+{
+    if(timeRestart === true)
+    {
+        timer = 10;
+    }
     if(timer > 0) 
     {
-        timer--;
         document.querySelector("#timer").innerHTML = timer;
         timerId = setTimeout(decreaseTimer, 1000);
+        timer--;
     }
     if(timer === 0)
     {
+        document.querySelector("#timer").innerHTML = timer;
         determineWinner({player, enemy, timerId});
     }
 }
