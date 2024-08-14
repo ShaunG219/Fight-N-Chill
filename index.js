@@ -223,7 +223,7 @@ function animate()
     }
     else if(keys.d.pressed && player.lastKey === 'd')
     {
-        if(player.position.x < rightBorder)
+        if(player.position.x < rightBorder - 15)
         {
             player.velocity.x = 5;
             player.switchSprite('run');
@@ -244,7 +244,7 @@ function animate()
     //Enemy
     if(keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft')
     {
-        if(enemy.position.x > leftBorder)
+        if(enemy.position.x > leftBorder + 17)
         {
             enemy.velocity.x = -5
             enemy.switchSprite('run');
