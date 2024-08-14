@@ -306,7 +306,6 @@ window.addEventListener('keydown', (event) => {
 
     if(!player.dead)
     {
-        console.log("player.dead = " + player.dead);
         switch(event.key){
             case 'd':
                 keys.d.pressed = true;

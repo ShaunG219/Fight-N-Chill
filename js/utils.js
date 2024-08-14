@@ -52,6 +52,7 @@ function decreaseTimer(timeRestart)
 {
     if(timeRestart === true)
     {
+        clearTimeout(timerId);
         timer = 10;
     }
     if(timer > 0) 
