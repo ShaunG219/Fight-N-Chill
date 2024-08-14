@@ -58,6 +58,7 @@ class Sprite
 
 class Fighter extends Sprite{
     constructor({
+        power,
         position, 
         velocity, 
         color = 'red', 
@@ -76,7 +77,7 @@ class Fighter extends Sprite{
                 framesMax,
                 offset
         });
-    
+        this.power = power;
         this.velocity = velocity;
         this.width = 50;
         this.height = 150;
@@ -125,7 +126,7 @@ class Fighter extends Sprite{
         this.attackBox.position.x = this.position.x + this.attackBox.offset.x;
         this.attackBox.position.y = this.position.y + this.attackBox.offset.y;
         
-        //Player and attackbox drawn here:
+        // Player and attackbox drawn here:
         // c.fillRect(this.position.x, this.position.y, this.width, this.height);
         // c.fillStyle = this.color;
         // c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height);
@@ -145,15 +146,21 @@ class Fighter extends Sprite{
         }
     }
 
+    outOfBounds()
+    {
+        if(this.position.x <= -60 || this.position.x >= 1030)
+            return true;
+    }
+
     attack()
     {
         this.switchSprite('attack');
         this.isAttacking = true;
     }
 
-    takeHit()
+    takeHit(damage)
     {    
-        this.health -= 20;
+        this.health -= damage;
         if(this.health <= 0)
         {
             this.switchSprite('death');

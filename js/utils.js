@@ -27,7 +27,7 @@ function determineWinner({player, enemy, timerId})
 function restart({player, enemy})
 {
     player.revive();
-    player.position.x = 0;
+    player.position.x = 30;
     player.position.y = 0;
     
     gsap.killTweensOf('#playerHealth');
@@ -46,14 +46,14 @@ function restart({player, enemy})
     document.querySelector('#displayText').style.display = 'none';
 }
 
-let timer = 10;
+let timer = 60;
 let timerId;
 function decreaseTimer(timeRestart)
 {
     if(timeRestart === true)
     {
         clearTimeout(timerId);
-        timer = 10;
+        timer = 60;
     }
     if(timer > 0) 
     {

@@ -59,8 +59,9 @@ const shop = new Sprite({
 });
 
 const player = new Fighter({
+    power: 20,
     position:{
-    x: 0,
+    x: 30,
     y: 0
     },
     velocity:{
@@ -115,6 +116,7 @@ const player = new Fighter({
 })
 
 const enemy = new Fighter({
+    power: 15,
     position:{
     x: 942,
     y: 0
@@ -207,16 +209,20 @@ function animate()
     player.velocity.x = 0;
     enemy.velocity.x = 0;
     
+    //Check if fighters are out of bounds
+    player.outOfBounds();
+    enemy.outOfBounds();
     //Player
     if(keys.a.pressed && player.lastKey === 'a')
     {
-        player.velocity.x = -5;
-        player.switchSprite('run');
+            player.velocity.x = -5;
+            player.switchSprite('run');
     }
     else if(keys.d.pressed && player.lastKey === 'd')
     {
-        player.velocity.x = 5;
-        player.switchSprite('run');
+            player.velocity.x = 5;
+            player.switchSprite('run');
+        
     }
     else{
         player.switchSprite('idle');
@@ -258,7 +264,7 @@ function animate()
         player.isAttacking = false;
         if(enemy.health > 0 && player.health > 0 && timer > 0)
         {
-            enemy.takeHit();
+            enemy.takeHit(player.power);
         }
         
         gsap.to('#enemyHealth', {
@@ -277,7 +283,13 @@ function animate()
     {
         enemy.isAttacking = false;
         if(player.health > 0 && enemy.health > 0 && timer > 0)
-            player.takeHit();
+        {
+            player.takeHit(enemy.power);
+        }
+
+        if(player.health <= 0)
+            player.health = 0;
+        
         gsap.to('#playerHealth', {
             width: player.health + '%'
         })
@@ -294,6 +306,7 @@ function animate()
         determineWinner({player, enemy, timerId});
     }
 
+    //console.log(enemy.position.x);
     window.requestAnimationFrame(animate);
 }
 animate();
