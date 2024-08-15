@@ -22,6 +22,8 @@ Each game is 60 seconds and can be restarted. Fight and Chill! Enjoy!
   <dd>- Spotify Embeded playlist</dd>
   <dt>Google API</dt>
   <dd>- Timer font</dd>
+  <dt>Netlify</dt>
+  <dd>- Deploy game as a website with own domain</dd>
 </dl>
 
 <h3>Player 1 (on the left)-</h3>
