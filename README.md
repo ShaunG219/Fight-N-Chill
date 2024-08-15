@@ -1,5 +1,7 @@
 <h1>JavaScript-Fighting-Game</h1>
 
+link: https://fight-n-chill-game.netlify.app/
+
 <h2>Game: Fight N' Chill</h2> 
 <h3>Description:</h3>
 Two player retro style fighting game with an addition of lofi music. 
