@@ -25,7 +25,7 @@ Each game is 60 seconds and can be restarted. Fight and Chill! Enjoy!
 <h3>Player 1 (on the left)-</h3>
 
 <h4>Description:</h4>
-Meideval Knight is stronger but attacks are slower and has shorter attack range
+Medieval Knight is stronger but attacks are slower and has shorter attack range
 
 <h4>Controls:</h4>
 
