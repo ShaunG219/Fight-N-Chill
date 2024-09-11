@@ -6,7 +6,7 @@ link: https://fight-n-chill-game.netlify.app/
 <h3>Description:</h3>
 Two player retro style fighting game with an addition of lofi music. 
 
-Each game is 60 seconds and can be restarted. Fight and Chill! Enjoy!
+Each game is 60 seconds and can be restarted. Fight N' Chill! Enjoy!
 
 <h3>Technologies Used:</h3>
 <dl>
